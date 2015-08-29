@@ -1,4 +1,4 @@
-/*×¢Òâ¼«½ÇÅÅĞòµÄ³õÊ¼»¯*/
+/*æ³¨æ„æè§’æ’åºçš„åˆå§‹åŒ–*/
 struct P{ int x, y; };
 P p[MAXN];
 int n;
@@ -22,22 +22,22 @@ bool cmp(P a, P b)
 
 vector<P> Graham()
 {
-    vector<P> stk(n);//´æÍ¹°ü
+    vector<P> stk(n);//å­˜å‡¸åŒ…
     int k = 0;
     for (int i = 0; i < n; i++) {
-        while (k > 1 && (cross(p[i], stk[k-2], stk[k-1])) <= 0)//
+        while (k > 1 && sgn(cross(p[i], stk[k-2], stk[k-1])) <= 0)//
             k--;
         stk[k++] = p[i];
     }
-    stk.resize(k);//µ÷ÕûÕıÈ·µÄÍ¹°ü¶¥µãÊı
+    stk.resize(k);//è°ƒæ•´æ­£ç¡®çš„å‡¸åŒ…é¡¶ç‚¹æ•°
     return stk;
 }
 
 
 
 /*
- *¼«½ÇÅÅĞò+Graham Scan£º1.¿ÉÒÔ½â¾ö¹²ÏßºÍµãÊıÎª2µÄÇé¿ö
- *                      2.¼«½ÇÅÅĞòÖĞcross(a, b, c),ÊÇÒÔÏòÁ¿(c, a)Îª¿ªÊ¼±ß£¬ÄæÊ±Õë×ßµ½ÏòÁ¿(b, c)µÄ½ÇµÄsin£¬¹ÊÕıÊı±íÊ¾½ÇĞ¡ÓÚ180¶È£¬¸ºÊı±íÊ¾½Ç´óÓÚ180¶È
+ *æè§’æ’åº+Graham Scanï¼š1.å¯ä»¥è§£å†³å…±çº¿å’Œç‚¹æ•°ä¸º2çš„æƒ…å†µ
+ *                      2.æè§’æ’åºä¸­cross(a, b, c),æ˜¯ä»¥å‘é‡(c, a)ä¸ºå¼€å§‹è¾¹ï¼Œé€†æ—¶é’ˆèµ°åˆ°å‘é‡(b, c)çš„è§’çš„sinï¼Œæ•…æ­£æ•°è¡¨ç¤ºè§’å°äº180åº¦ï¼Œè´Ÿæ•°è¡¨ç¤ºè§’å¤§äº180åº¦
  *
  */
  /*
@@ -72,37 +72,37 @@ bool cmp(P a, P b)
 
 vector<P> Graham()
 {
-    vector<P> stk(n);//´æÍ¹°ü
+    vector<P> stk(n);//å­˜å‡¸åŒ…
     int k = 0;
     for (int i = 0; i < n; i++) {
         while (k > 1 && (cross(p[i], stk[k-2], stk[k-1])) <= 0)//
             k--;
         stk[k++] = p[i];
     }
-    stk.resize(k);//µ÷ÕûÕıÈ·µÄÍ¹°ü¶¥µãÊı
+    stk.resize(k);//è°ƒæ•´æ­£ç¡®çš„å‡¸åŒ…é¡¶ç‚¹æ•°
     return stk;
 }
 
 int main()
 {
     while (~scanf("%d", &n)) {
-        int ans = 0, rp = 0;//rpÓÃÓÚÁÙÊ±±£´æ×î×óÏÂµãµÄÏÂ±ê
-        //ÊäÈë
+        int ans = 0, rp = 0;//rpç”¨äºä¸´æ—¶ä¿å­˜æœ€å·¦ä¸‹ç‚¹çš„ä¸‹æ ‡
+        //è¾“å…¥
         for (int i = 0; i < n; i++) {
             scanf("%d%d", &p[i].x, &p[i].y);
             if(p[rp].y > p[i].y
-               || (p[rp].y == p[i].y && p[rp].x > p[i].x))//ÕÒ×î×óÏÂµÄµã
+               || (p[rp].y == p[i].y && p[rp].x > p[i].x))//æ‰¾æœ€å·¦ä¸‹çš„ç‚¹
                rp = i;
         }
 
-        //¼«½ÇÅÅĞò
-        swap(p[rp], p[0]);//³õÊ¼»¯£¬·½±ãcmp¹ı³Ì
+        //æè§’æ’åº
+        swap(p[rp], p[0]);//åˆå§‹åŒ–ï¼Œæ–¹ä¾¿cmpè¿‡ç¨‹
         sort(p + 1, p + n, cmp);
 
-        //Graham Scan¹¹³ÉÍ¹°ü
+        //Graham Scanæ„æˆå‡¸åŒ…
         vector<P> stk = Graham();
 
-        //±©Á¦Çó½â
+        //æš´åŠ›æ±‚è§£
         for (int i = 0; i < stk.size(); i++) {
             for (int j = 0; j < i; j++)
                 ans = max(ans, dis(stk[i], stk[j]));

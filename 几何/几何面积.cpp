@@ -6,9 +6,9 @@ double getTriAre(Point a, Point b, Point o) {
 
 double getPolAre(vector<Point> pol) {
     double ret = 0.0;
-    int nch = pol.size();
-    for(int i = 0; i < nch; i++) {
-        ret += cross(pol[i], pol[(i+1)%nch], Point(0,0));
+    int num = pol.size();
+    for(int i = 0; i < num; i++) {
+        ret += cross(pol[i], pol[(i+1)%num], Point(0,0));
     }
     return ret / 2.0;
 }

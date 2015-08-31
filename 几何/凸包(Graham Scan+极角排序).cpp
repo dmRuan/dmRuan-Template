@@ -1,33 +1,20 @@
 /*注意极角排序的初始化*/
-struct P{ int x, y; };
-P p[MAXN];
 int n;
 
-int dis(P a, P b)
-{
-    return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+bool cmp(Point a, Point b) {
+    int pa = sgn(cross(a, b, P[0]));
+    if( pa == 0 )   return isg(dist(b, P[0]), dist(a, P[0]));
+    else            return pa > 0;
 }
 
-int cross(P a, P b, P c)
+vector<Point> getCH()
 {
-    return (a.x - c.x) * (b.y - c.y) - (b.x - c.x) * (a.y - c.y);
-}
-
-bool cmp(P a, P b)
-{
-    int x = cross(a, b, p[0]);
-    if(x > 0 || (x == 0 && dis(a, p[0]) < dis(b, p[0]))) return 1;
-    return 0;
-}
-
-vector<P> Graham()
-{
-    vector<P> stk(n);//存凸包
+    vector<Point> stk(n);//存凸包
     int k = 0;
     for (int i = 0; i < n; i++) {
-        while (k > 1 && sgn(cross(p[i], stk[k-2], stk[k-1])) <= 0)//
+        while ( k > 1 && sgn(cross(stk[k-1], P[i], stk[k-2])) <= 0 )
             k--;
-        stk[k++] = p[i];
+        stk[k++] = P[i];
     }
     stk.resize(k);//调整正确的凸包顶点数
     return stk;

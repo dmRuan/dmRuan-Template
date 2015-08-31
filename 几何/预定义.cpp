@@ -1,4 +1,4 @@
-/*µãµÄ½á¹¹Ìå*/
+/*ç‚¹çš„ç»“æ„ä½“*/
 struct Point {
     double x, y;
     Point() {}
@@ -29,7 +29,7 @@ struct Point {
         y = tx*sin(B) - ty*cos(B);
     }
 };
-/*ÏßµÄ½á¹¹Ìå*/
+/*çº¿çš„ç»“æ„ä½“*/
 struct Line {
     Point u, v;
     double k;
@@ -51,8 +51,8 @@ struct Line {
         if( sgn((u-v)^(b.u-b.v)) == 0 )
         {
             if( sgn((u-b.v)^(b.u-b.v)) == 0 )
-                return make_pair(0,res);//ÖØºÏ
-            else return make_pair(1,res);//Æ½ĞĞ
+                return make_pair(0,res);//é‡åˆ
+            else return make_pair(1,res);//å¹³è¡Œ
         }
         double t = ((u-b.u)^(b.u-b.v))/((u-v)^(b.u-b.v));
         res.x += (v.x-u.x)*t;
@@ -62,21 +62,17 @@ struct Line {
 };
 
 /*sign*/
-int sgn(double x)
-{
+int sgn(double x) {
     return (x>eps) - (x<-eps);
 }
-double cross(Point a, Point b, Point o)
-{
+double cross(Point a, Point b, Point o) {
     return (a-o) ^ (b-o);
 }
-double dis(Point a, Point b)
-{
+double dist(Point a, Point b) {
     return sqrt((a-b) * (a-b));
 }
 /*is segment intersection?*/
-bool isInter(Point a, Point b, Point c, Point d)
-{
+bool isInter(Point a, Point b, Point c, Point d) {
     return
         max(a.x,b.x) >= min(c.x,d.x) &&
         max(a.y,b.y) >= min(c.y,d.y) &&

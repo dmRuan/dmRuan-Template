@@ -4,8 +4,8 @@
  */
 
 //找最下左点
-if( sgn(P[rp].y - P[i].y) > 0
-  || (sgn(P[rp].y - P[i].y == 0)) && sgn(P[rp].x- P[i].x > 0) )
+if( isg(P[rp].y, P[i].y)
+  || (ise(P[rp].y, P[i].y) && isg(P[rp].x, P[i].x)) )
 rp = i;
 
 //重写的cmp，ba是排序的比较点

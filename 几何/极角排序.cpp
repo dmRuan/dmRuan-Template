@@ -9,12 +9,10 @@ if( isg(P[rp].y, P[i].y)
 rp = i;
 
 //重写的cmp，ba是排序的比较点
-bool cmp(Point a, Point b)
-{
+bool cmp(Point a, Point b) {
     double pa = sgn(cross(a, b, P[ba]));
-    if( pa == 0 )
-        return dist(a,P[ba]) < dist(b,P[ba]);//调节同一极角的点
-    else return pa > 0;//逆时针排序
+    if( pa == 0 )   return isg(dist(b, P[0]), dist(a, P[0]));//调节同一极角的点,距离近的优先
+    else            return pa > 0;//逆时针排序
 }
 
 
